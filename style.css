@@ -1,0 +1,239 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+/* Define Light Theme Color Palette via CSS Variables */
+:root {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --primary: #1e293b;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --border-color: #e2e8f0;
+    --table-alt: #f1f5f9;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Stretch Goal: Automatic Dark Theme via prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --primary: #f8fafc;
+        --accent: #10b981;
+        --accent-hover: #34d399;
+        --border-color: #334155;
+        --table-alt: #1e293b;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Global Reset & Typography */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 40px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary);
+}
+
+/* Layout: CSS Grid Dashboard Container */
+.dashboard-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 2 columns: Form on left, Table & header context on right */
+    gap: 24px;
+    align-items: start;
+}
+
+/* Grid Area Assignments */
+header {
+    grid-column: 1 / -1; /* Header spans full width across the top */
+}
+
+.form-section {
+    grid-column: 1 / 2;
+}
+
+.table-section {
+    grid-column: 2 / 3;
+}
+
+/* Card Styling, Box Model, and Micro-interactions */
+header, 
+section, 
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    /* Requirement 5: Micro-interactions (transform & shadow under 250ms) */
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+/* Hover and Keyboard Focus states for Cards */
+header:hover, header:focus-within,
+section:hover, section:focus-within,
+.card:hover, .card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: var(--hover-shadow);
+    outline: none; /* remove default ugly browser outline, replaced by custom card depth */
+}
+
+/* Header Styling */
+header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Form Section & Inputs (Flexbox inside the form card) */
+section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+form label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+form input, 
+form select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    background-color: var(--card-bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input:focus, 
+form select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Button Styling */
+button, 
+input[type="submit"] {
+    background-color: var(--accent);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-size: 1rem;
+    text-align: center;
+}
+
+button:hover, 
+input[type="submit"]:hover {
+    background-color: var(--accent-hover);
+}
+
+button:active, 
+input[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Table Styling */
+.table-responsive {
+    overflow-x: auto; /* Handles smaller table overflows smoothly */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+th {
+    background-color: var(--primary);
+    color: var(--card-bg);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--table-alt);
+}
+
+tbody tr:hover {
+    background-color: var(--border-color);
+}
+
+/* ==========================================
+   Responsive Design: Media Query (< 768px)
+   ========================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    /* Collapse Grid into a single column layout */
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Reset grid tracks so sections stack cleanly */
+    header, 
+    .form-section, 
+    .table-section {
+        grid-column: 1 / -1;
+    }
+}
